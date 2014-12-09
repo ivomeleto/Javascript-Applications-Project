@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Gallery App</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <script src="scripts/jQuerry/jquery-1.11.1.min.js"></script>
+        <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
+        <script src="scripts/galleryScript.js" ></script>
+        <link rel="stylesheet" href="styles/style.css">
+    </head>
+    <body>
+        <input type="text" id="albumName" placeholder="Album name...">
+        <button onclick="addAlbum()" class="addButt">+</button>
+        <input type="file" id="fileUploader">
+        <button id="fileUploadBtn" onclick="uploadImg()" >Upload to selected album</button>
+        <table id="albumlist"></table>
+        <div id="gallery"></div>
+    </body>
+</html>
+

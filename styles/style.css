@@ -1,0 +1,58 @@
+body{
+    font-family: Consolas;
+    color:white;
+    background-color: lightgrey;
+}
+div{
+    width:100%;
+}
+#booklist *, #booklist td, form input,form button{
+    border : 3px solid grey;
+}
+table{
+    width: 100%;
+}
+table td{
+    padding:2px;
+    background-color: darkgrey;
+}
+ tr:first-child td{
+    background-color: orange;
+    font-weight: 800;
+}
+.removeButt{
+    display: block;
+    margin:auto;
+    width: 34px;
+    font-weight: 600;
+}
+ 
+#albumName{
+    position: relative;
+    margin-top: 2px;
+    left:5px;
+    font-weight: 500;
+    width:216px;
+    margin: -3px;
+    font-family: Consolas;
+    color: white;
+    padding: 2px;
+    background-color: darkgrey;
+}
+ 
+::-webkit-input-placeholder{
+    color: lightgrey;
+}
+
+img{
+    margin:auto;
+    width: 250px;
+    margin-left: 5px;
+    margin-right: auto;
+
+}
+#gallery{
+    height: 690px;
+    margin-top: 50px;
+}
+    
