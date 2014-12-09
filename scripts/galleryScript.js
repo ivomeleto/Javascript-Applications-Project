@@ -39,37 +39,6 @@ function getAlbumsDataFromParse() {
     });
 }
 
-function addAlbum() {
-    var name = $('#albumName').val();
-        //TODO - ADD COMMENT INPUT SECTION !!!
-
-    $.ajax({
-        headers:{
-            "X-Parse-Application-Id": PARSE_APP_ID,
-            "X-Parse-REST-API-Key": PARSE_REST_API_KEY
-        },
-        url: PARSE_URL,
-        method: 'POST',
-        contentType: 'aplication/json',
-        data: JSON.stringify({
-             'name': name,
-             'pics': [],
-             'picsCount': 0,
-             'comment': 'shit'
-        //TODO - ADD COMMENT INPUT SECTION !!!
-
-        }),
-        success: function () {
-            console.log('GJ! You successfuly posted an object');
-            getAlbumsDataFromParse();
-         },
-        error: function (data) {
-            $('body').text('You fucked it up! Good job...(Add failed!)');
-        }
-    });
-}
-
-
 function albumClicked (albumID) {
     galleryBuilder();
     Parse.initialize(PARSE_APP_ID, PARSE_JS_KEY);
@@ -84,10 +53,36 @@ function albumClicked (albumID) {
         console.log(error);
       }
     });
-
     getPicsCount();
 }
 
+function addAlbum() {
+    var name = $('#albumName').val();
+        //TODO - ADD COMMENT INPUT SECTION !!!
+    $.ajax({
+        headers:{
+            "X-Parse-Application-Id": PARSE_APP_ID,
+            "X-Parse-REST-API-Key": PARSE_REST_API_KEY
+        },
+        url: PARSE_URL,
+        method: 'POST',
+        contentType: 'aplication/json',
+        data: JSON.stringify({
+             'name': name,
+             'pics': [],
+             'picsCount': 0,
+             'comment': 'The comments section remains to be added...'
+        //TODO - ADD COMMENT INPUT SECTION !!!
+        }),
+        success: function () {
+            console.log('GJ! You successfuly created an album!');
+            getAlbumsDataFromParse();
+         },
+        error: function (data) {
+            $('body').text('You fucked it up! Good job...(Add failed!)');
+        }
+    });
+}
 
 function removeAlbum (albumID) {
     $.ajax({
@@ -108,9 +103,7 @@ function removeAlbum (albumID) {
     });
 }
 
-
 function editAlbumPicArray (picArray) {
-
    $.ajax({
         headers: {
             "X-Parse-Application-Id": PARSE_APP_ID,
@@ -124,7 +117,7 @@ function editAlbumPicArray (picArray) {
         }),
         success: function() {
             getAlbumsDataFromParse();
-            console.log("GJ! You successfuly updated object with ID = "+localStorage['albumID']);
+            console.log("GJ! You successfuly updated album with ID = "+localStorage['albumID']);
             //console.log(picUrlArray);
             getPicsCount();
 
@@ -182,12 +175,12 @@ function galleryBuilder () {
     var index = 0;
     picUrlArray.forEach(function(photo){
         $('#gallery').append("<img src="+photo+" onclick=removeImg(picUrlArray,"+index+")>");
-        console.log(index);
+        //console.log(index);
         index++;
     });
 }
 
-function uploadImg() {
+function addImg() {
     Parse.initialize(PARSE_APP_ID, PARSE_JS_KEY);
     var picIndex  = count;
     // console.log('picIndex = ' + picIndex);
@@ -199,16 +192,11 @@ function uploadImg() {
             var name = picIndex + ".jpg";
             var parseFile = new Parse.File(name, file);
             parseFile.save().then(function(){
-
-                picURL = parseFile.url();
-                console.log(picUrlArray);
-                picUrlArray[picIndex] = picURL;
+                picUrlArray[picIndex] = parseFile.url();
                 picIndex++;
                 editAlbumPicArray(picUrlArray);
                 galleryBuilder();
-
-                console.log(picURL);
-
+                console.log(parseFile.url());
             }, function(error) {
                 console.log("Error");
                 console.dir(error);
